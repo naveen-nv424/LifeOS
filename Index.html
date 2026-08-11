@@ -1,0 +1,2155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#111827">
+<link rel="manifest" href="manifest.json">
+<title>LifeOS</title>
+
+<style>
+*{box-sizing:border-box}
+
+:root{
+ --bg:#f4f6fb;
+ --card:#fff;
+ --text:#111827;
+ --muted:#6b7280;
+ --border:#e5e7eb;
+ --primary:#111827;
+ --danger:#dc2626;
+ --soft:#f3f4f6;
+}
+
+body.dark{
+ --bg:#0f172a;
+ --card:#1e293b;
+ --text:#f8fafc;
+ --muted:#94a3b8;
+ --border:#334155;
+ --primary:#f8fafc;
+ --soft:#334155;
+}
+
+body{
+ margin:0;
+ background:var(--bg);
+ color:var(--text);
+ font-family:Arial,sans-serif;
+ transition:.2s;
+}
+
+button,input,select{
+ font:inherit;
+}
+
+button{
+ border:0;
+ border-radius:12px;
+ padding:11px 14px;
+ background:#111827;
+ color:white;
+ cursor:pointer;
+}
+
+body.dark button{
+ background:#f8fafc;
+ color:#111827;
+}
+
+input,select{
+ width:100%;
+ padding:13px;
+ border:1px solid var(--border);
+ background:var(--card);
+ color:var(--text);
+ border-radius:12px;
+ outline:none;
+}
+
+h1,h2,h3,p{
+ margin-top:0;
+}
+
+.hidden{
+ display:none!important;
+}
+
+/* AUTH */
+
+#auth{
+ min-height:100vh;
+ display:flex;
+ justify-content:center;
+ align-items:center;
+ padding:20px;
+}
+
+.auth-card{
+ width:100%;
+ max-width:400px;
+ background:var(--card);
+ padding:28px;
+ border-radius:25px;
+ box-shadow:0 10px 35px #0002;
+}
+
+.logo{
+ text-align:center;
+ font-size:38px;
+ margin-bottom:5px;
+}
+
+.auth-sub{
+ text-align:center;
+ color:var(--muted);
+}
+
+.auth-card input{
+ margin-top:12px;
+}
+
+.auth-card button{
+ width:100%;
+ margin-top:15px;
+}
+
+.switch{
+ text-align:center;
+ color:#2563eb;
+ margin-top:15px;
+ cursor:pointer;
+}
+
+.error{
+ color:#dc2626;
+ text-align:center;
+ margin-top:10px;
+}
+
+/* APP */
+
+#app{
+ display:none;
+}
+
+.header{
+ background:#111827;
+ color:white;
+ padding:20px;
+ border-radius:0 0 25px 25px;
+}
+
+.header-top{
+ max-width:500px;
+ margin:auto;
+ display:flex;
+ justify-content:space-between;
+ align-items:center;
+ gap:10px;
+}
+
+.header h1{
+ margin-bottom:5px;
+}
+
+.header p{
+ margin:0;
+ opacity:.7;
+}
+
+.logout{
+ background:#dc2626!important;
+ color:white!important;
+}
+
+.container{
+ max-width:500px;
+ margin:auto;
+ padding:18px;
+ padding-bottom:105px;
+}
+
+/* SCREEN */
+
+.screen{
+ display:none;
+}
+
+.screen.active{
+ display:block;
+}
+
+/* CARD */
+
+.card{
+ background:var(--card);
+ padding:18px;
+ border-radius:20px;
+ margin-bottom:15px;
+ box-shadow:0 5px 20px #0000000d;
+}
+
+/* STATS */
+
+.stats{
+ display:grid;
+ grid-template-columns:1fr 1fr;
+ gap:12px;
+}
+
+.stat{
+ background:var(--soft);
+ padding:16px;
+ border-radius:16px;
+}
+
+.stat span{
+ color:var(--muted);
+ font-size:13px;
+}
+
+.stat strong{
+ display:block;
+ font-size:25px;
+ margin-top:7px;
+}
+
+/* ROW */
+
+.row{
+ display:flex;
+ gap:8px;
+ align-items:center;
+}
+
+.row input{
+ flex:1;
+}
+
+/* PROGRESS */
+
+.progress{
+ height:11px;
+ background:var(--soft);
+ border-radius:20px;
+ overflow:hidden;
+ margin:12px 0;
+}
+
+.progress-bar{
+ height:100%;
+ width:0%;
+ background:#111827;
+ transition:.3s;
+}
+
+body.dark .progress-bar{
+ background:white;
+}
+
+/* ITEMS */
+
+.item{
+ display:flex;
+ align-items:center;
+ gap:10px;
+ padding:13px;
+ background:var(--soft);
+ border-radius:14px;
+ margin-top:10px;
+}
+
+.item-main{
+ flex:1;
+}
+
+.done{
+ text-decoration:line-through;
+ opacity:.5;
+}
+
+.delete{
+ background:#dc2626!important;
+ color:white!important;
+ padding:7px 10px;
+}
+
+.empty{
+ color:var(--muted);
+ text-align:center;
+ padding:20px;
+}
+
+/* GOALS */
+
+.goal{
+ background:var(--soft);
+ padding:15px;
+ border-radius:15px;
+ margin-top:10px;
+}
+
+.goal-top{
+ display:flex;
+ justify-content:space-between;
+ gap:10px;
+}
+
+.goal-actions{
+ display:flex;
+ gap:7px;
+ margin-top:10px;
+}
+
+.goal-actions button{
+ flex:1;
+}
+
+/* MONEY */
+
+.total{
+ font-size:32px;
+ font-weight:bold;
+ margin:10px 0 20px;
+}
+
+.expense{
+ background:var(--soft);
+ padding:14px;
+ border-radius:15px;
+ margin-top:10px;
+}
+
+.expense-top{
+ display:flex;
+ justify-content:space-between;
+ gap:10px;
+}
+
+.muted{
+ color:var(--muted);
+ font-size:13px;
+ margin-top:6px;
+}
+
+/* HABIT */
+
+.habit{
+ display:flex;
+ align-items:center;
+ gap:12px;
+ background:var(--soft);
+ padding:14px;
+ border-radius:15px;
+ margin-top:10px;
+}
+
+.habit-check{
+ width:30px;
+ height:30px;
+ border-radius:50%;
+ background:#d1d5db;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ cursor:pointer;
+ flex-shrink:0;
+}
+
+.habit-check.done-check{
+ background:#111827;
+ color:white;
+}
+
+body.dark .habit-check{
+ background:#475569;
+}
+
+body.dark .habit-check.done-check{
+ background:white;
+ color:#111827;
+}
+
+.habit-name{
+ flex:1;
+}
+
+/* SEARCH */
+
+.search{
+ margin-bottom:12px;
+}
+
+/* PROFILE */
+
+.profile{
+ text-align:center;
+}
+
+.avatar{
+ width:75px;
+ height:75px;
+ margin:auto;
+ border-radius:50%;
+ background:#111827;
+ color:white;
+ display:flex;
+ align-items:center;
+ justify-content:center;
+ font-size:32px;
+}
+
+body.dark .avatar{
+ background:white;
+ color:#111827;
+}
+
+/* NAV */
+
+.nav{
+ position:fixed;
+ bottom:0;
+ left:0;
+ right:0;
+ max-width:500px;
+ margin:auto;
+ background:var(--card);
+ border-top:1px solid var(--border);
+ display:grid;
+ grid-template-columns:repeat(5,1fr);
+ padding:7px;
+ z-index:10;
+}
+
+.nav button{
+ background:transparent!important;
+ color:var(--muted)!important;
+ padding:7px 2px;
+ font-size:11px;
+}
+
+.nav button.active{
+ color:var(--text)!important;
+ font-weight:bold;
+}
+
+/* TOAST */
+
+#toast{
+ position:fixed;
+ left:50%;
+ bottom:85px;
+ transform:translateX(-50%);
+ background:#111827;
+ color:white;
+ padding:12px 18px;
+ border-radius:20px;
+ display:none;
+ z-index:50;
+ max-width:90%;
+ text-align:center;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:350px){
+ .nav button{
+  font-size:10px;
+ }
+}
+</style>
+</head>
+
+
+<body>
+
+
+<!-- ==============================
+ AUTH
+============================== -->
+
+<section id="auth">
+
+<div class="auth-card">
+
+<div class="logo">🚀</div>
+
+<h1 style="text-align:center">
+LifeOS
+</h1>
+
+<p class="auth-sub" id="authTitle">
+Login to continue
+</p>
+
+<input
+ id="authName"
+ placeholder="Your name"
+ class="hidden"
+>
+
+<input
+ id="authEmail"
+ type="email"
+ placeholder="Email"
+>
+
+<input
+ id="authPassword"
+ type="password"
+ placeholder="Password"
+>
+
+<button
+ id="authButton"
+ onclick="authAction()">
+Login
+</button>
+
+<div
+ id="authError"
+ class="error">
+</div>
+
+<div
+ class="switch"
+ id="authSwitch"
+ onclick="toggleAuth()">
+Create new account
+</div>
+
+</div>
+
+</section>
+
+
+
+<!-- ==============================
+ APP
+============================== -->
+
+<section id="app">
+
+
+<header class="header">
+
+<div class="header-top">
+
+<div>
+<h1>🚀 LifeOS</h1>
+<p id="welcome">Welcome 👋</p>
+</div>
+
+<button
+class="logout"
+onclick="logout()">
+Logout
+</button>
+
+</div>
+
+</header>
+
+
+
+<main class="container">
+
+
+<!-- HOME -->
+
+<section
+id="home"
+class="screen active">
+
+<div class="card">
+
+<h2>👋 Good day!</h2>
+
+<p id="todayText"></p>
+
+</div>
+
+
+<div class="stats">
+
+<div class="stat">
+<span>Tasks</span>
+<strong id="sTasks">0</strong>
+</div>
+
+<div class="stat">
+<span>Completed</span>
+<strong id="sCompleted">0</strong>
+</div>
+
+<div class="stat">
+<span>Goals</span>
+<strong id="sGoals">0</strong>
+</div>
+
+<div class="stat">
+<span>Habits</span>
+<strong id="sHabits">0</strong>
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h3>📊 Today's Score</h3>
+
+<div class="progress">
+<div
+id="overallBar"
+class="progress-bar">
+</div>
+</div>
+
+<p>
+<strong id="overallPercent">0</strong>%
+complete
+</p>
+
+</div>
+
+
+<div class="card">
+
+<h3>💡 Motivation</h3>
+
+<p id="quote"></p>
+
+</div>
+
+</section>
+
+
+
+<!-- TASKS -->
+
+<section
+id="tasks"
+class="screen">
+
+<div class="card">
+
+<h2>✅ Tasks</h2>
+
+<input
+class="search"
+id="taskSearch"
+placeholder="🔎 Search tasks..."
+oninput="renderTasks()"
+>
+
+<div class="row">
+
+<input
+id="taskInput"
+placeholder="New task..."
+>
+
+<button onclick="addTask()">
+Add
+</button>
+
+</div>
+
+<div id="taskList"></div>
+
+</div>
+
+</section>
+
+
+
+<!-- GOALS -->
+
+<section
+id="goals"
+class="screen">
+
+<div class="card">
+
+<h2>🎯 Goals</h2>
+
+<div class="row">
+
+<input
+id="goalInput"
+placeholder="New goal..."
+>
+
+<button onclick="addGoal()">
+Add
+</button>
+
+</div>
+
+<div id="goalList"></div>
+
+</div>
+
+</section>
+
+
+
+<!-- MONEY -->
+
+<section
+id="money"
+class="screen">
+
+<div class="card">
+
+<h2>💰 Money</h2>
+
+<p class="muted">
+Total expenses
+</p>
+
+<div class="total">
+₹<span id="moneyTotal">0</span>
+</div>
+
+<input
+id="expenseName"
+placeholder="Expense name"
+>
+
+<br><br>
+
+<input
+id="expenseAmount"
+type="number"
+placeholder="Amount ₹"
+>
+
+<br><br>
+
+<select id="expenseCategory">
+
+<option>🍔 Food</option>
+<option>🚌 Travel</option>
+<option>🛒 Shopping</option>
+<option>📄 Bills</option>
+<option>💊 Medical</option>
+<option>📱 Recharge</option>
+<option>📦 Other</option>
+
+</select>
+
+<br><br>
+
+<input
+id="expenseDate"
+type="date"
+>
+
+<br><br>
+
+<button
+onclick="addExpense()"
+style="width:100%">
+Add Expense
+</button>
+
+<div id="expenseList"></div>
+
+</div>
+
+</section>
+
+
+
+<!-- HABITS -->
+
+<section
+id="habits"
+class="screen">
+
+<div class="card">
+
+<h2>🔥 Daily Habits</h2>
+
+<p class="muted">
+Build consistency every day.
+</p>
+
+<div class="row">
+
+<input
+id="habitInput"
+placeholder="Example: Workout"
+>
+
+<button onclick="addHabit()">
+Add
+</button>
+
+</div>
+
+<div id="habitList"></div>
+
+<div class="progress">
+<div
+id="habitBar"
+class="progress-bar">
+</div>
+</div>
+
+<p>
+<strong id="habitPercent">0</strong>%
+completed
+</p>
+
+</div>
+
+</section>
+
+
+
+<!-- PROFILE -->
+
+<section
+id="profile"
+class="screen">
+
+<div class="card profile">
+
+<div class="avatar">
+👤
+</div>
+
+<h2 id="profileName">
+User
+</h2>
+
+<p
+class="muted"
+id="profileEmail">
+email
+</p>
+
+<hr>
+
+<h3>⚙️ Settings</h3>
+
+<button
+onclick="toggleDark()"
+style="width:100%">
+🌙 Toggle Dark Mode
+</button>
+
+<br><br>
+
+<button
+onclick="exportData()"
+style="width:100%">
+📤 Backup Data
+</button>
+
+<br><br>
+
+<button
+onclick="document.getElementById('importFile').click()"
+style="width:100%">
+📥 Restore Data
+</button>
+
+<input
+id="importFile"
+type="file"
+accept=".json"
+style="display:none"
+onchange="importData(event)"
+>
+
+<br><br>
+
+<button
+onclick="clearAllData()"
+class="delete"
+style="width:100%">
+⚠️ Clear App Data
+</button>
+
+</div>
+
+</section>
+
+
+</main>
+
+
+
+<!-- NAV -->
+
+<nav class="nav">
+
+<button
+class="active"
+onclick="navigate('home',this)">
+🏠<br>Home
+</button>
+
+<button
+onclick="navigate('tasks',this)">
+✅<br>Tasks
+</button>
+
+<button
+onclick="navigate('goals',this)">
+🎯<br>Goals
+</button>
+
+<button
+onclick="navigate('money',this)">
+💰<br>Money
+</button>
+
+<button
+onclick="navigate('habits',this)">
+🔥<br>Habits
+</button>
+
+</nav>
+
+
+</section>
+
+
+
+<div id="toast"></div>
+
+
+
+<script>
+
+/* =====================================
+ GLOBAL DATA
+===================================== */
+
+let loginMode=true;
+
+let tasks=
+JSON.parse(localStorage.getItem("lifeos_tasks"))||[];
+
+let goals=
+JSON.parse(localStorage.getItem("lifeos_goals"))||[];
+
+let habits=
+JSON.parse(localStorage.getItem("lifeos_habits"))||[];
+
+let expenses=
+JSON.parse(localStorage.getItem("lifeos_expenses"))||[];
+
+
+/* =====================================
+ AUTH
+===================================== */
+
+function toggleAuth(){
+
+ loginMode=!loginMode;
+
+ document.getElementById("authName")
+ .classList.toggle("hidden",loginMode);
+
+ document.getElementById("authTitle")
+ .innerText=
+ loginMode
+ ?"Login to continue"
+ :"Create your account";
+
+ document.getElementById("authButton")
+ .innerText=
+ loginMode
+ ?"Login"
+ :"Sign Up";
+
+ document.getElementById("authSwitch")
+ .innerText=
+ loginMode
+ ?"Create new account"
+ :"Already have an account? Login";
+
+ document.getElementById("authError")
+ .innerText="";
+
+}
+
+
+function authAction(){
+
+ const name=
+ document.getElementById("authName")
+ .value.trim();
+
+ const email=
+ document.getElementById("authEmail")
+ .value.trim();
+
+ const password=
+ document.getElementById("authPassword")
+ .value;
+
+ const error=
+ document.getElementById("authError");
+
+
+ if(!email||!password){
+
+  error.innerText=
+  "Enter email and password.";
+
+  return;
+ }
+
+
+ if(!loginMode){
+
+  if(!name){
+
+   error.innerText=
+   "Enter your name.";
+
+   return;
+  }
+
+
+  const user={
+   name:name,
+   email:email,
+   password:password
+  };
+
+
+  localStorage.setItem(
+   "lifeos_user",
+   JSON.stringify(user)
+  );
+
+  localStorage.setItem(
+   "lifeos_login",
+   "true"
+  );
+
+  openApp();
+
+  return;
+ }
+
+
+ const saved=
+ JSON.parse(
+ localStorage.getItem("lifeos_user")
+ );
+
+
+ if(!saved){
+
+  error.innerText=
+  "Account not found. Please Sign Up.";
+
+  return;
+ }
+
+
+ if(
+ saved.email!==email||
+ saved.password!==password
+ ){
+
+  error.innerText=
+  "Incorrect email or password.";
+
+  return;
+ }
+
+
+ localStorage.setItem(
+ "lifeos_login",
+ "true"
+ );
+
+ openApp();
+
+}
+
+
+function openApp(){
+
+ document.getElementById("auth")
+ .style.display="none";
+
+ document.getElementById("app")
+ .style.display="block";
+
+ const user=
+ JSON.parse(
+ localStorage.getItem("lifeos_user")
+ );
+
+
+ if(user){
+
+  document.getElementById("welcome")
+  .innerText=
+  "Welcome, "+user.name+" 👋";
+
+  document.getElementById("profileName")
+  .innerText=user.name;
+
+  document.getElementById("profileEmail")
+  .innerText=user.email;
+
+ }
+
+
+ document.getElementById("todayText")
+ .innerText=
+ new Date().toLocaleDateString(
+ "en-IN",
+ {
+  weekday:"long",
+  day:"numeric",
+  month:"long",
+  year:"numeric"
+ }
+ );
+
+
+ renderAll();
+
+}
+
+
+function logout(){
+
+ localStorage.setItem(
+ "lifeos_login",
+ "false"
+ );
+
+ document.getElementById("app")
+ .style.display="none";
+
+ document.getElementById("auth")
+ .style.display="flex";
+
+}
+
+
+/* AUTO LOGIN */
+
+if(
+ localStorage.getItem("lifeos_login")
+ ==="true"
+){
+
+ openApp();
+
+}
+
+
+/* =====================================
+ NAVIGATION
+===================================== */
+
+function navigate(name,btn){
+
+ document
+ .querySelectorAll(".screen")
+ .forEach(
+  s=>s.classList.remove("active")
+ );
+
+ document
+ .getElementById(name)
+ .classList.add("active");
+
+ document
+ .querySelectorAll(".nav button")
+ .forEach(
+  b=>b.classList.remove("active")
+ );
+
+ btn.classList.add("active");
+
+}
+
+
+/* =====================================
+ TASKS
+===================================== */
+
+function addTask(){
+
+ const input=
+ document.getElementById("taskInput");
+
+ const text=
+ input.value.trim();
+
+ if(!text){
+
+  toast("Enter a task first.");
+
+  return;
+ }
+
+
+ tasks.push({
+  id:Date.now(),
+  text:text,
+  done:false
+ });
+
+
+ input.value="";
+
+ save();
+
+ renderTasks();
+
+ updateDashboard();
+
+ toast("Task added ✅");
+
+}
+
+
+function renderTasks(){
+
+ const list=
+ document.getElementById("taskList");
+
+ const search=
+ document.getElementById("taskSearch")
+ .value
+ .toLowerCase();
+
+ list.innerHTML="";
+
+
+ const filtered=
+ tasks.filter(
+  t=>t.text.toLowerCase()
+  .includes(search)
+ );
+
+
+ if(!filtered.length){
+
+  list.innerHTML=
+  '<div class="empty">No tasks found.</div>';
+
+  return;
+ }
+
+
+ filtered.forEach(task=>{
+
+  const div=
+  document.createElement("div");
+
+  div.className="item";
+
+  div.innerHTML=`
+
+  <div
+  class="item-main ${task.done?"done":""}"
+  onclick="toggleTask(${task.id})">
+
+  ${task.done?"☑️":"⬜"}
+  ${escapeHTML(task.text)}
+
+  </div>
+
+  <button
+  class="delete"
+  onclick="deleteTask(${task.id})">
+
+  X
+
+  </button>
+
+  `;
+
+  list.appendChild(div);
+
+ });
+
+}
+
+
+function toggleTask(id){
+
+ const task=
+ tasks.find(t=>t.id===id);
+
+ if(task){
+
+  task.done=!task.done;
+
+  save();
+  renderTasks();
+  updateDashboard();
+
+ }
+
+}
+
+
+function deleteTask(id){
+
+ tasks=
+ tasks.filter(t=>t.id!==id);
+
+ save();
+ renderTasks();
+ updateDashboard();
+
+ toast("Task deleted.");
+
+}
+
+
+/* =====================================
+ GOALS
+===================================== */
+
+function addGoal(){
+
+ const input=
+ document.getElementById("goalInput");
+
+ const text=
+ input.value.trim();
+
+ if(!text){
+
+  toast("Enter a goal first.");
+
+  return;
+ }
+
+
+ goals.push({
+  id:Date.now(),
+  text:text,
+  progress:0
+ });
+
+
+ input.value="";
+
+ save();
+ renderGoals();
+ updateDashboard();
+
+ toast("Goal added 🎯");
+
+}
+
+
+function renderGoals(){
+
+ const list=
+ document.getElementById("goalList");
+
+ list.innerHTML="";
+
+
+ if(!goals.length){
+
+  list.innerHTML=
+  '<div class="empty">No goals yet.</div>';
+
+  return;
+ }
+
+
+ goals.forEach(goal=>{
+
+  const div=
+  document.createElement("div");
+
+  div.className="goal";
+
+  div.innerHTML=`
+
+  <div class="goal-top">
+
+  <strong>
+  ${escapeHTML(goal.text)}
+  </strong>
+
+  <span>
+  ${goal.progress}%
+  </span>
+
+  </div>
+
+  <div class="progress">
+
+  <div
+  class="progress-bar"
+  style="width:${goal.progress}%">
+  </div>
+
+  </div>
+
+  <div class="goal-actions">
+
+  <button
+  onclick="goalProgress(${goal.id},-10)">
+  −
+  </button>
+
+  <button
+  onclick="goalProgress(${goal.id},10)">
+  +
+  </button>
+
+  <button
+  class="delete"
+  onclick="deleteGoal(${goal.id})">
+  Delete
+  </button>
+
+  </div>
+
+  `;
+
+  list.appendChild(div);
+
+ });
+
+}
+
+
+function goalProgress(id,value){
+
+ const goal=
+ goals.find(g=>g.id===id);
+
+ if(goal){
+
+  goal.progress=
+  Math.max(
+   0,
+   Math.min(
+    100,
+    goal.progress+value
+   )
+  );
+
+  save();
+  renderGoals();
+  updateDashboard();
+
+ }
+
+}
+
+
+function deleteGoal(id){
+
+ goals=
+ goals.filter(g=>g.id!==id);
+
+ save();
+ renderGoals();
+ updateDashboard();
+
+}
+
+
+/* =====================================
+ HABITS
+===================================== */
+
+function addHabit(){
+
+ const input=
+ document.getElementById("habitInput");
+
+ const name=
+ input.value.trim();
+
+ if(!name){
+
+  toast("Enter a habit first.");
+
+  return;
+ }
+
+
+ habits.push({
+  id:Date.now(),
+  name:name,
+  done:false
+ });
+
+
+ input.value="";
+
+ save();
+ renderHabits();
+ updateDashboard();
+
+ toast("Habit added 🔥");
+
+}
+
+
+function renderHabits(){
+
+ const list=
+ document.getElementById("habitList");
+
+ list.innerHTML="";
+
+
+ if(!habits.length){
+
+  list.innerHTML=
+  '<div class="empty">No habits yet.</div>';
+
+  updateHabitProgress();
+
+  return;
+ }
+
+
+ habits.forEach(habit=>{
+
+  const div=
+  document.createElement("div");
+
+  div.className="habit";
+
+  div.innerHTML=`
+
+  <div
+  class="habit-check ${habit.done?"done-check":""}"
+  onclick="toggleHabit(${habit.id})">
+
+  ${habit.done?"✓":""}
+
+  </div>
+
+  <div
+  class="habit-name ${habit.done?"done":""}">
+
+  ${escapeHTML(habit.name)}
+
+  </div>
+
+  <button
+  class="delete"
+  onclick="deleteHabit(${habit.id})">
+
+  X
+
+  </button>
+
+  `;
+
+  list.appendChild(div);
+
+ });
+
+ updateHabitProgress();
+
+}
+
+
+function toggleHabit(id){
+
+ const habit=
+ habits.find(h=>h.id===id);
+
+ if(habit){
+
+  habit.done=!habit.done;
+
+  save();
+  renderHabits();
+  updateDashboard();
+
+ }
+
+}
+
+
+function deleteHabit(id){
+
+ habits=
+ habits.filter(h=>h.id!==id);
+
+ save();
+ renderHabits();
+ updateDashboard();
+
+}
+
+
+function updateHabitProgress(){
+
+ const completed=
+ habits.filter(h=>h.done).length;
+
+ const percent=
+ habits.length
+ ?Math.round(
+  completed/habits.length*100
+ )
+ :0;
+
+ document.getElementById("habitBar")
+ .style.width=percent+"%";
+
+ document.getElementById("habitPercent")
+ .innerText=percent;
+
+}
+
+
+/* =====================================
+ EXPENSES
+===================================== */
+
+function addExpense(){
+
+ const name=
+ document.getElementById("expenseName")
+ .value.trim();
+
+ const amount=
+ Number(
+ document.getElementById("expenseAmount")
+ .value
+ );
+
+ const category=
+ document.getElementById("expenseCategory")
+ .value;
+
+ const date=
+ document.getElementById("expenseDate")
+ .value||
+ new Date().toISOString().split("T")[0];
+
+
+ if(!name||amount<=0){
+
+  toast("Enter valid expense details.");
+
+  return;
+ }
+
+
+ expenses.push({
+  id:Date.now(),
+  name:name,
+  amount:amount,
+  category:category,
+  date:date
+ });
+
+
+ document.getElementById("expenseName")
+ .value="";
+
+ document.getElementById("expenseAmount")
+ .value="";
+
+ save();
+ renderExpenses();
+ updateDashboard();
+
+ toast("Expense added 💰");
+
+}
+
+
+function renderExpenses(){
+
+ const list=
+ document.getElementById("expenseList");
+
+ list.innerHTML="";
+
+
+ if(!expenses.length){
+
+  list.innerHTML=
+  '<div class="empty">No expenses yet.</div>';
+
+  updateMoney();
+
+  return;
+ }
+
+
+ [...expenses]
+ .reverse()
+ .forEach(expense=>{
+
+  const div=
+  document.createElement("div");
+
+  div.className="expense";
+
+  div.innerHTML=`
+
+  <div class="expense-top">
+
+  <strong>
+  ${escapeHTML(expense.name)}
+  </strong>
+
+  <strong>
+  ₹${expense.amount}
+  </strong>
+
+  </div>
+
+  <div class="muted">
+
+  ${escapeHTML(expense.category)}
+  •
+  ${expense.date}
+
+  </div>
+
+  <br>
+
+  <button
+  class="delete"
+  onclick="deleteExpense(${expense.id})">
+
+  Delete
+
+  </button>
+
+  `;
+
+  list.appendChild(div);
+
+ });
+
+ updateMoney();
+
+}
+
+
+function deleteExpense(id){
+
+ expenses=
+ expenses.filter(e=>e.id!==id);
+
+ save();
+ renderExpenses();
+ updateDashboard();
+
+}
+
+
+function updateMoney(){
+
+ const total=
+ expenses.reduce(
+  (sum,e)=>
+  sum+Number(e.amount),
+  0
+ );
+
+ document.getElementById("moneyTotal")
+ .innerText=total.toLocaleString("en-IN");
+
+}
+
+
+/* =====================================
+ DASHBOARD
+===================================== */
+
+function updateDashboard(){
+
+ const completed=
+ tasks.filter(t=>t.done).length;
+
+ const habitCompleted=
+ habits.filter(h=>h.done).length;
+
+ const taskScore=
+ tasks.length
+ ?completed/tasks.length*100
+ :0;
+
+ const habitScore=
+ habits.length
+ ?habitCompleted/habits.length*100
+ :0;
+
+ let overall=0;
+
+ if(tasks.length||habits.length){
+
+  let parts=0;
+
+  let total=0;
+
+  if(tasks.length){
+
+   total+=taskScore;
+   parts++;
+
+  }
+
+  if(habits.length){
+
+   total+=habitScore;
+   parts++;
+
+  }
+
+  overall=Math.round(total/parts);
+
+ }
+
+
+ document.getElementById("sTasks")
+ .innerText=tasks.length;
+
+ document.getElementById("sCompleted")
+ .innerText=completed;
+
+ document.getElementById("sGoals")
+ .innerText=goals.length;
+
+ document.getElementById("sHabits")
+ .innerText=habits.length;
+
+ document.getElementById("overallBar")
+ .style.width=overall+"%";
+
+ document.getElementById("overallPercent")
+ .innerText=overall;
+
+ updateHabitProgress();
+ updateMoney();
+
+}
+
+
+/* =====================================
+ QUOTES
+===================================== */
+
+const quotes=[
+
+"Small steps every day create big results. 🚀",
+
+"Discipline today creates freedom tomorrow. 💪",
+
+"Don't stop. Your future self is watching. 🔥",
+
+"One productive day can change your direction. ⚡",
+
+"Start where you are. Improve every day. 🌱",
+
+"Consistency beats motivation. 🧠",
+
+"Your goals need action, not excuses. 🎯"
+
+];
+
+document.getElementById("quote")
+.innerText=
+quotes[
+Math.floor(
+Math.random()*quotes.length
+)
+];
+
+
+/* =====================================
+ DARK MODE
+===================================== */
+
+function toggleDark(){
+
+ document.body.classList.toggle("dark");
+
+ localStorage.setItem(
+ "lifeos_dark",
+ document.body.classList.contains("dark")
+ );
+
+}
+
+
+if(
+ localStorage.getItem("lifeos_dark")
+ ==="true"
+){
+
+ document.body.classList.add("dark");
+
+}
+
+
+/* =====================================
+ BACKUP
+===================================== */
+
+function exportData(){
+
+ const data={
+
+  tasks:tasks,
+  goals:goals,
+  habits:habits,
+  expenses:expenses,
+
+  user:
+  JSON.parse(
+   localStorage.getItem("lifeos_user")
+  )
+
+ };
+
+
+ const blob=
+ new Blob(
+  [JSON.stringify(data,null,2)],
+  {type:"application/json"}
+ );
+
+
+ const url=
+ URL.createObjectURL(blob);
+
+
+ const a=
+ document.createElement("a");
+
+ a.href=url;
+
+ a.download=
+ "LifeOS-Backup.json";
+
+ a.click();
+
+ URL.revokeObjectURL(url);
+
+ toast("Backup created 📤");
+
+}
+
+
+/* =====================================
+ RESTORE
+===================================== */
+
+function importData(event){
+
+ const file=
+ event.target.files[0];
+
+ if(!file)return;
+
+
+ const reader=
+ new FileReader();
+
+
+ reader.onload=function(e){
+
+  try{
+
+   const data=
+   JSON.parse(e.target.result);
+
+
+   tasks=
+   Array.isArray(data.tasks)
+   ?data.tasks:[];
+
+   goals=
+   Array.isArray(data.goals)
+   ?data.goals:[];
+
+   habits=
+   Array.isArray(data.habits)
+   ?data.habits:[];
+
+   expenses=
+   Array.isArray(data.expenses)
+   ?data.expenses:[];
+
+
+   if(data.user){
+
+    localStorage.setItem(
+     "lifeos_user",
+     JSON.stringify(data.user)
+    );
+
+   }
+
+
+   save();
+
+   renderAll();
+
+   toast("Data restored ✅");
+
+  }catch{
+
+   toast("Invalid backup file.");
+
+  }
+
+ };
+
+ reader.readAsText(file);
+
+}
+
+
+/* =====================================
+ CLEAR
+===================================== */
+
+function clearAllData(){
+
+ const ok=
+ confirm(
+ "Delete all LifeOS data from this device?"
+ );
+
+ if(!ok)return;
+
+
+ tasks=[];
+ goals=[];
+ habits=[];
+ expenses=[];
+
+ localStorage.removeItem("lifeos_tasks");
+ localStorage.removeItem("lifeos_goals");
+ localStorage.removeItem("lifeos_habits");
+ localStorage.removeItem("lifeos_expenses");
+
+ renderAll();
+
+ toast("App data cleared.");
+
+}
+
+
+/* =====================================
+ SAVE
+===================================== */
+
+function save(){
+
+ localStorage.setItem(
+  "lifeos_tasks",
+  JSON.stringify(tasks)
+ );
+
+ localStorage.setItem(
+  "lifeos_goals",
+  JSON.stringify(goals)
+ );
+
+ localStorage.setItem(
+  "lifeos_habits",
+  JSON.stringify(habits)
+ );
+
+ localStorage.setItem(
+  "lifeos_expenses",
+  JSON.stringify(expenses)
+ );
+
+}
+
+
+/* =====================================
+ RENDER
+===================================== */
+
+function renderAll(){
+
+ renderTasks();
+ renderGoals();
+ renderHabits();
+ renderExpenses();
+ updateDashboard();
+
+}
+
+
+/* =====================================
+ TOAST
+===================================== */
+
+function toast(message){
+
+ const box=
+ document.getElementById("toast");
+
+ box.innerText=message;
+
+ box.style.display="block";
+
+ setTimeout(
+  ()=>{
+   box.style.display="none";
+  },
+  1800
+ );
+
+}
+
+
+/* =====================================
+ SECURITY / DISPLAY HELPER
+===================================== */
+
+function escapeHTML(value){
+
+ return String(value)
+ .replace(/&/g,"&amp;")
+ .replace(/</g,"&lt;")
+ .replace(/>/g,"&gt;")
+ .replace(/"/g,"&quot;")
+ .replace(/'/g,"&#039;");
+
+}
+</script>
+<script>
+if ("serviceWorker" in navigator) {
+  window.addEventListener("load", () => {
+    navigator.serviceWorker.register("./sw.js")
+      .then(() => {
+        console.log("LifeOS offline mode ready");
+      })
+      .catch(error => {
+        console.log("Service Worker error:", error);
+      });
+  });
+}
+</script>
+</body>
+</html>
